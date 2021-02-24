@@ -1,0 +1,1184 @@
+options:
+  parameters:
+    author: quique
+    category: '[GRC Hier Blocks]'
+    cmake_opt: ''
+    comment: ''
+    copyright: ''
+    description: ''
+    gen_cmake: 'On'
+    gen_linking: dynamic
+    generate_options: qt_gui
+    hier_block_src_path: '.:'
+    id: dvbs_final
+    max_nouts: '0'
+    output_language: python
+    placement: (0,0)
+    qt_qss_theme: ''
+    realtime_scheduling: ''
+    run: 'True'
+    run_command: '{python} -u {filename}'
+    run_options: prompt
+    sizing_mode: fixed
+    thread_safe_setters: ''
+    title: DVB-S Simulation
+    window_size: ''
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [8, 8]
+    rotation: 0
+    state: enabled
+
+blocks:
+- name: FreqOff
+  id: variable_qtgui_range
+  parameters:
+    comment: ''
+    gui_hint: ''
+    label: Frequency Offset
+    min_len: '200'
+    orient: Qt.Horizontal
+    rangeType: float
+    start: '-0.1'
+    step: '0.001'
+    stop: '0.1'
+    value: '0'
+    widget: counter_slider
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [764, 16]
+    rotation: 0
+    state: true
+- name: Noise
+  id: variable_qtgui_range
+  parameters:
+    comment: ''
+    gui_hint: ''
+    label: Channel Noise
+    min_len: '200'
+    orient: Qt.Horizontal
+    rangeType: float
+    start: '0'
+    step: '0.01'
+    stop: '1'
+    value: '0'
+    widget: counter_slider
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [634, 16]
+    rotation: 0
+    state: true
+- name: SampSymb
+  id: variable
+  parameters:
+    comment: CM - PCS
+    value: '4'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [539, 78]
+    rotation: 0
+    state: enabled
+- name: delay
+  id: variable_qtgui_range
+  parameters:
+    comment: ''
+    gui_hint: ''
+    label: Delay
+    min_len: '200'
+    orient: Qt.Horizontal
+    rangeType: float
+    start: '0'
+    step: '1'
+    stop: '100'
+    value: '0'
+    widget: counter_slider
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [909, 13]
+    rotation: 0
+    state: true
+- name: nfilts
+  id: variable
+  parameters:
+    comment: PCS
+    value: '100'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [464, 77]
+    rotation: 0
+    state: enabled
+- name: qpsk_const
+  id: variable_constellation_rect
+  parameters:
+    comment: CM
+    const_points: '[-1-1j, -1+1j, 1+1j, 1-1j]'
+    imag_sect: '2'
+    precision: '8'
+    real_sect: '2'
+    rot_sym: '4'
+    soft_dec_lut: None
+    sym_map: '[0, 1, 2, 3]'
+    w_imag_sect: '1'
+    w_real_sect: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [276, 8]
+    rotation: 0
+    state: enabled
+- name: rrc_taps_0
+  id: variable
+  parameters:
+    comment: PCS
+    value: firdes.root_raised_cosine(nfilts, nfilts, 1.0/float(SampSymb), 0.35, 45*nfilts)
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [470, 14]
+    rotation: 0
+    state: enabled
+- name: samp_rate
+  id: variable
+  parameters:
+    comment: ''
+    value: 55e6
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [184, 12]
+    rotation: 0
+    state: enabled
+- name: Vector_Source_1
+  id: blocks_vector_source_x
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    repeat: 'True'
+    tags: '[]'
+    type: byte
+    vector: (71,0,0,0,0,0,115,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,71,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [8, 248]
+    rotation: 0
+    state: disabled
+- name: Video_Source
+  id: blocks_file_source
+  parameters:
+    affinity: ''
+    alias: ''
+    begin_tag: pmt.PMT_NIL
+    comment: 'Sourcing .ts file which
+
+      was converted from
+
+      a .mov file using VLC'
+    file: /home/quique/Documents/PSK-Simulation/DVB_Codification/DVB_Codification/Test_Video.ts
+    length: '0'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    offset: '0'
+    repeat: 'False'
+    type: byte
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [7, 329]
+    rotation: 0
+    state: disabled
+- name: Video_Source_0
+  id: blocks_file_source
+  parameters:
+    affinity: ''
+    alias: ''
+    begin_tag: pmt.PMT_NIL
+    comment: 'Sourcing .ts file which
+
+      was converted from
+
+      a .mov file using VLC'
+    file: /home/enriquec/video.ts
+    length: '0'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    offset: '0'
+    repeat: 'False'
+    type: byte
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [7, 552]
+    rotation: 0
+    state: enabled
+- name: blocks_delay_0
+  id: blocks_delay
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    delay: delay
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    num_ports: '1'
+    type: float
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [521, 852]
+    rotation: 0
+    state: enabled
+- name: blocks_file_sink_0
+  id: blocks_file_sink
+  parameters:
+    affinity: ''
+    alias: ''
+    append: 'False'
+    comment: ''
+    file: /home/enriquec/video_received.ts
+    type: byte
+    unbuffered: 'False'
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1145, 794]
+    rotation: 0
+    state: enabled
+- name: blocks_null_sink_0
+  id: blocks_null_sink
+  parameters:
+    affinity: ''
+    alias: ''
+    bus_structure_sink: '[[0,],]'
+    comment: ''
+    num_inputs: '1'
+    type: byte
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1208, 748]
+    rotation: 0
+    state: true
+- name: blocks_repack_bits_bb_0
+  id: blocks_repack_bits_bb
+  parameters:
+    affinity: ''
+    alias: ''
+    align_output: 'False'
+    comment: ''
+    endianness: gr.GR_LSB_FIRST
+    k: '2'
+    l: '8'
+    len_tag_key: '""'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [917, 562]
+    rotation: 0
+    state: enabled
+- name: blocks_skiphead_0
+  id: blocks_skiphead
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    num_items: '8'
+    type: byte
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1112, 571]
+    rotation: 0
+    state: true
+- name: blocks_throttle_0
+  id: blocks_throttle
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    ignoretag: 'True'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    samples_per_second: samp_rate
+    type: byte
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [229, 337]
+    rotation: 90
+    state: enabled
+- name: blocks_uchar_to_float_0
+  id: blocks_uchar_to_float
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1157, 683]
+    rotation: 0
+    state: enabled
+- name: blocks_uchar_to_float_0_0
+  id: blocks_uchar_to_float
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [112, 690]
+    rotation: 270
+    state: enabled
+- name: blocks_uchar_to_float_0_1
+  id: blocks_uchar_to_float
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [179, 174]
+    rotation: 0
+    state: disabled
+- name: blocks_uchar_to_float_0_1_0
+  id: blocks_uchar_to_float
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [469, 352]
+    rotation: 0
+    state: disabled
+- name: blocks_udp_sink_0
+  id: blocks_udp_sink
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    eof: 'True'
+    ipaddr: 127.0.0.1
+    port: '4321'
+    psize: '1316'
+    type: byte
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [897, 843]
+    rotation: 0
+    state: disabled
+- name: blocks_udp_source_0
+  id: blocks_udp_source
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    eof: 'True'
+    ipaddr: 127.0.0.1
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    port: '5004'
+    psize: '1316'
+    type: byte
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [8, 442]
+    rotation: 0
+    state: disabled
+- name: blocks_vector_to_stream_0
+  id: blocks_vector_to_stream
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    num_items: '6048'
+    type: byte
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1300, 266]
+    rotation: 0
+    state: enabled
+- name: blocks_vector_to_stream_1
+  id: blocks_vector_to_stream
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    num_items: '1504'
+    type: byte
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [348, 322]
+    rotation: 0
+    state: disabled
+- name: channels_channel_model_0
+  id: channels_channel_model
+  parameters:
+    affinity: ''
+    alias: ''
+    block_tags: 'False'
+    comment: ''
+    epsilon: '1.0'
+    freq_offset: FreqOff
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    noise_voltage: Noise
+    seed: '0'
+    taps: 1.0 + 1.0j
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [660, 413]
+    rotation: 0
+    state: enabled
+- name: digital_cma_equalizer_cc_0
+  id: digital_cma_equalizer_cc
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    modulus: '1'
+    mu: '.01'
+    num_taps: '15'
+    sps: '2'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1128, 381]
+    rotation: 0
+    state: enabled
+- name: digital_constellation_decoder_cb_0
+  id: digital_constellation_decoder_cb
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    constellation: qpsk_const
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [497, 570]
+    rotation: 0
+    state: enabled
+- name: digital_constellation_modulator_0
+  id: digital_constellation_modulator
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    constellation: qpsk_const
+    differential: 'True'
+    excess_bw: '0.35'
+    log: 'False'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    samples_per_symbol: SampSymb
+    verbose: 'False'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [387, 429]
+    rotation: 0
+    state: enabled
+- name: digital_costas_loop_cc_0
+  id: digital_costas_loop_cc
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    order: '4'
+    use_snr: 'False'
+    w: '.1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1323, 374]
+    rotation: 0
+    state: enabled
+- name: digital_diff_decoder_bb_0
+  id: digital_diff_decoder_bb
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    modulus: '4'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [728, 572]
+    rotation: 0
+    state: enabled
+- name: digital_pfb_clock_sync_xxx_0
+  id: digital_pfb_clock_sync_xxx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    filter_size: nfilts
+    init_phase: nfilts/2
+    loop_bw: '0.1'
+    max_dev: '1.5'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    osps: '2'
+    sps: SampSymb
+    taps: rrc_taps_0
+    type: ccf
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [895, 406]
+    rotation: 0
+    state: enabled
+- name: dtv_dvbt_convolutional_deinterleaver_0
+  id: dtv_dvbt_convolutional_deinterleaver
+  parameters:
+    I: '12'
+    M: '17'
+    affinity: ''
+    alias: ''
+    blocks: '136'
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [508, 689]
+    rotation: 0
+    state: enabled
+- name: dtv_dvbt_convolutional_interleaver_0
+  id: dtv_dvbt_convolutional_interleaver
+  parameters:
+    I: '12'
+    M: '17'
+    affinity: ''
+    alias: ''
+    blocks: '136'
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [778, 246]
+    rotation: 0
+    state: enabled
+- name: dtv_dvbt_energy_descramble_0
+  id: dtv_dvbt_energy_descramble
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    nsize: '8'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [969, 705]
+    rotation: 0
+    state: enabled
+- name: dtv_dvbt_energy_dispersal_0
+  id: dtv_dvbt_energy_dispersal
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    nsize: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [301, 262]
+    rotation: 0
+    state: enabled
+- name: dtv_dvbt_inner_coder_0
+  id: dtv_dvbt_inner_coder
+  parameters:
+    affinity: ''
+    alias: ''
+    code_rate: C7_8
+    comment: ''
+    constellation: qpsk
+    hierarchy: nh
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    ninput: '1'
+    noutput: '6048'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1052, 230]
+    rotation: 0
+    state: enabled
+- name: dtv_dvbt_reed_solomon_dec_0
+  id: dtv_dvbt_reed_solomon_dec
+  parameters:
+    affinity: ''
+    alias: ''
+    blocks: '8'
+    comment: ''
+    gfpoly: '0x11d'
+    k: '239'
+    m: '8'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    n: '255'
+    p: '2'
+    s: '51'
+    t: '8'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [753, 649]
+    rotation: 0
+    state: enabled
+- name: dtv_dvbt_reed_solomon_enc_0
+  id: dtv_dvbt_reed_solomon_enc
+  parameters:
+    affinity: ''
+    alias: ''
+    blocks: '8'
+    comment: ''
+    gfpoly: '0x11d'
+    k: '239'
+    m: '8'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    n: '255'
+    p: '2'
+    s: '51'
+    t: '8'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [527, 206]
+    rotation: 0
+    state: enabled
+- name: dtv_dvbt_viterbi_decoder_0
+  id: dtv_dvbt_viterbi_decoder
+  parameters:
+    affinity: ''
+    alias: ''
+    block_size: '6048'
+    code_rate: C7_8
+    comment: ''
+    constellation: qpsk
+    hierarchy: nh
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    type: b
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [252, 681]
+    rotation: 0
+    state: enabled
+- name: qtgui_time_sink_x_0
+  id: qtgui_time_sink_x
+  parameters:
+    affinity: ''
+    alias: ''
+    alpha1: '1.0'
+    alpha10: '1.0'
+    alpha2: '1.0'
+    alpha3: '1.0'
+    alpha4: '1.0'
+    alpha5: '1.0'
+    alpha6: '1.0'
+    alpha7: '1.0'
+    alpha8: '1.0'
+    alpha9: '1.0'
+    autoscale: 'True'
+    axislabels: 'True'
+    color1: blue
+    color10: dark blue
+    color2: red
+    color3: green
+    color4: black
+    color5: cyan
+    color6: magenta
+    color7: yellow
+    color8: dark red
+    color9: dark green
+    comment: ''
+    ctrlpanel: 'False'
+    entags: 'True'
+    grid: 'True'
+    gui_hint: ''
+    label1: RX
+    label10: Signal 10
+    label2: TX
+    label3: Signal 3
+    label4: Signal 4
+    label5: Signal 5
+    label6: Signal 6
+    label7: Signal 7
+    label8: Signal 8
+    label9: Signal 9
+    legend: 'True'
+    marker1: '-1'
+    marker10: '-1'
+    marker2: '-1'
+    marker3: '-1'
+    marker4: '-1'
+    marker5: '-1'
+    marker6: '-1'
+    marker7: '-1'
+    marker8: '-1'
+    marker9: '-1'
+    name: '""'
+    nconnections: '2'
+    size: '1024'
+    srate: samp_rate
+    stemplot: 'False'
+    style1: '1'
+    style10: '1'
+    style2: '1'
+    style3: '1'
+    style4: '1'
+    style5: '1'
+    style6: '1'
+    style7: '1'
+    style8: '1'
+    style9: '1'
+    tr_chan: '0'
+    tr_delay: '0'
+    tr_level: '0.0'
+    tr_mode: qtgui.TRIG_MODE_FREE
+    tr_slope: qtgui.TRIG_SLOPE_POS
+    tr_tag: '""'
+    type: float
+    update_time: '0.10'
+    width1: '1'
+    width10: '1'
+    width2: '1'
+    width3: '1'
+    width4: '1'
+    width5: '1'
+    width6: '1'
+    width7: '1'
+    width8: '1'
+    width9: '1'
+    ylabel: Amplitude
+    ymax: '1'
+    ymin: '-1'
+    yunit: '""'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1335, 682]
+    rotation: 0
+    state: enabled
+- name: qtgui_time_sink_x_2
+  id: qtgui_time_sink_x
+  parameters:
+    affinity: ''
+    alias: ''
+    alpha1: '1.0'
+    alpha10: '1.0'
+    alpha2: '1.0'
+    alpha3: '1.0'
+    alpha4: '1.0'
+    alpha5: '1.0'
+    alpha6: '1.0'
+    alpha7: '1.0'
+    alpha8: '1.0'
+    alpha9: '1.0'
+    autoscale: 'True'
+    axislabels: 'True'
+    color1: blue
+    color10: dark blue
+    color2: red
+    color3: green
+    color4: black
+    color5: cyan
+    color6: magenta
+    color7: yellow
+    color8: dark red
+    color9: dark green
+    comment: ''
+    ctrlpanel: 'False'
+    entags: 'True'
+    grid: 'False'
+    gui_hint: ''
+    label1: Signal 1
+    label10: Signal 10
+    label2: Signal 2
+    label3: Signal 3
+    label4: Signal 4
+    label5: Signal 5
+    label6: Signal 6
+    label7: Signal 7
+    label8: Signal 8
+    label9: Signal 9
+    legend: 'True'
+    marker1: '-1'
+    marker10: '-1'
+    marker2: '-1'
+    marker3: '-1'
+    marker4: '-1'
+    marker5: '-1'
+    marker6: '-1'
+    marker7: '-1'
+    marker8: '-1'
+    marker9: '-1'
+    name: '"Input Energy Dispersal"'
+    nconnections: '1'
+    size: '1024'
+    srate: samp_rate
+    stemplot: 'False'
+    style1: '1'
+    style10: '1'
+    style2: '1'
+    style3: '1'
+    style4: '1'
+    style5: '1'
+    style6: '1'
+    style7: '1'
+    style8: '1'
+    style9: '1'
+    tr_chan: '0'
+    tr_delay: '0'
+    tr_level: '0.0'
+    tr_mode: qtgui.TRIG_MODE_FREE
+    tr_slope: qtgui.TRIG_SLOPE_POS
+    tr_tag: '""'
+    type: float
+    update_time: '0.10'
+    width1: '1'
+    width10: '1'
+    width2: '1'
+    width3: '1'
+    width4: '1'
+    width5: '1'
+    width6: '1'
+    width7: '1'
+    width8: '1'
+    width9: '1'
+    ylabel: Byte Value
+    ymax: '1'
+    ymin: '-1'
+    yunit: '""'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [337, 168]
+    rotation: 0
+    state: disabled
+- name: qtgui_time_sink_x_2_0
+  id: qtgui_time_sink_x
+  parameters:
+    affinity: ''
+    alias: ''
+    alpha1: '1.0'
+    alpha10: '1.0'
+    alpha2: '1.0'
+    alpha3: '1.0'
+    alpha4: '1.0'
+    alpha5: '1.0'
+    alpha6: '1.0'
+    alpha7: '1.0'
+    alpha8: '1.0'
+    alpha9: '1.0'
+    autoscale: 'True'
+    axislabels: 'True'
+    color1: blue
+    color10: dark blue
+    color2: red
+    color3: green
+    color4: black
+    color5: cyan
+    color6: magenta
+    color7: yellow
+    color8: dark red
+    color9: dark green
+    comment: ''
+    ctrlpanel: 'False'
+    entags: 'True'
+    grid: 'False'
+    gui_hint: ''
+    label1: Signal 1
+    label10: Signal 10
+    label2: Signal 2
+    label3: Signal 3
+    label4: Signal 4
+    label5: Signal 5
+    label6: Signal 6
+    label7: Signal 7
+    label8: Signal 8
+    label9: Signal 9
+    legend: 'True'
+    marker1: '-1'
+    marker10: '-1'
+    marker2: '-1'
+    marker3: '-1'
+    marker4: '-1'
+    marker5: '-1'
+    marker6: '-1'
+    marker7: '-1'
+    marker8: '-1'
+    marker9: '-1'
+    name: '"Output Energy Dispersal"'
+    nconnections: '1'
+    size: '1024'
+    srate: samp_rate
+    stemplot: 'False'
+    style1: '1'
+    style10: '1'
+    style2: '1'
+    style3: '1'
+    style4: '1'
+    style5: '1'
+    style6: '1'
+    style7: '1'
+    style8: '1'
+    style9: '1'
+    tr_chan: '0'
+    tr_delay: '0'
+    tr_level: '0.0'
+    tr_mode: qtgui.TRIG_MODE_FREE
+    tr_slope: qtgui.TRIG_SLOPE_POS
+    tr_tag: '""'
+    type: float
+    update_time: '0.10'
+    width1: '1'
+    width10: '1'
+    width2: '1'
+    width3: '1'
+    width4: '1'
+    width5: '1'
+    width6: '1'
+    width7: '1'
+    width8: '1'
+    width9: '1'
+    ylabel: Byte Value
+    ymax: '1'
+    ymin: '-1'
+    yunit: '""'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [670, 328]
+    rotation: 0
+    state: disabled
+- name: virtual_sink_0
+  id: virtual_sink
+  parameters:
+    alias: ''
+    comment: ''
+    stream_id: coder-modulator
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1266, 312]
+    rotation: 180
+    state: true
+- name: virtual_sink_1
+  id: virtual_sink
+  parameters:
+    alias: ''
+    comment: ''
+    stream_id: constellation-demodulator
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1292, 511]
+    rotation: 180
+    state: true
+- name: virtual_sink_2
+  id: virtual_sink
+  parameters:
+    alias: ''
+    comment: ''
+    stream_id: demodulator-decoder
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1241, 570]
+    rotation: 0
+    state: true
+- name: virtual_source_0
+  id: virtual_source
+  parameters:
+    alias: ''
+    comment: ''
+    stream_id: coder-modulator
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [387, 378]
+    rotation: 180
+    state: enabled
+- name: virtual_source_1
+  id: virtual_source
+  parameters:
+    alias: ''
+    comment: ''
+    stream_id: constellation-demodulator
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [257, 570]
+    rotation: 0
+    state: true
+- name: virtual_source_2
+  id: virtual_source
+  parameters:
+    alias: ''
+    comment: ''
+    stream_id: demodulator-decoder
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [256, 632]
+    rotation: 180
+    state: true
+
+connections:
+- [Vector_Source_1, '0', blocks_throttle_0, '0']
+- [Video_Source, '0', blocks_throttle_0, '0']
+- [Video_Source_0, '0', blocks_throttle_0, '0']
+- [blocks_delay_0, '0', qtgui_time_sink_x_0, '1']
+- [blocks_repack_bits_bb_0, '0', blocks_skiphead_0, '0']
+- [blocks_skiphead_0, '0', virtual_sink_2, '0']
+- [blocks_throttle_0, '0', blocks_uchar_to_float_0_0, '0']
+- [blocks_throttle_0, '0', blocks_uchar_to_float_0_1, '0']
+- [blocks_throttle_0, '0', dtv_dvbt_energy_dispersal_0, '0']
+- [blocks_uchar_to_float_0, '0', qtgui_time_sink_x_0, '0']
+- [blocks_uchar_to_float_0_0, '0', blocks_delay_0, '0']
+- [blocks_uchar_to_float_0_1, '0', qtgui_time_sink_x_2, '0']
+- [blocks_uchar_to_float_0_1_0, '0', qtgui_time_sink_x_2_0, '0']
+- [blocks_udp_source_0, '0', blocks_throttle_0, '0']
+- [blocks_vector_to_stream_0, '0', virtual_sink_0, '0']
+- [blocks_vector_to_stream_1, '0', blocks_uchar_to_float_0_1_0, '0']
+- [channels_channel_model_0, '0', digital_pfb_clock_sync_xxx_0, '0']
+- [digital_cma_equalizer_cc_0, '0', digital_costas_loop_cc_0, '0']
+- [digital_constellation_decoder_cb_0, '0', digital_diff_decoder_bb_0, '0']
+- [digital_constellation_modulator_0, '0', channels_channel_model_0, '0']
+- [digital_costas_loop_cc_0, '0', virtual_sink_1, '0']
+- [digital_diff_decoder_bb_0, '0', blocks_repack_bits_bb_0, '0']
+- [digital_pfb_clock_sync_xxx_0, '0', digital_cma_equalizer_cc_0, '0']
+- [dtv_dvbt_convolutional_deinterleaver_0, '0', dtv_dvbt_reed_solomon_dec_0, '0']
+- [dtv_dvbt_convolutional_interleaver_0, '0', dtv_dvbt_inner_coder_0, '0']
+- [dtv_dvbt_energy_descramble_0, '0', blocks_file_sink_0, '0']
+- [dtv_dvbt_energy_descramble_0, '0', blocks_null_sink_0, '0']
+- [dtv_dvbt_energy_descramble_0, '0', blocks_uchar_to_float_0, '0']
+- [dtv_dvbt_energy_descramble_0, '0', blocks_udp_sink_0, '0']
+- [dtv_dvbt_energy_dispersal_0, '0', blocks_vector_to_stream_1, '0']
+- [dtv_dvbt_energy_dispersal_0, '0', dtv_dvbt_reed_solomon_enc_0, '0']
+- [dtv_dvbt_inner_coder_0, '0', blocks_vector_to_stream_0, '0']
+- [dtv_dvbt_reed_solomon_dec_0, '0', dtv_dvbt_energy_descramble_0, '0']
+- [dtv_dvbt_reed_solomon_enc_0, '0', dtv_dvbt_convolutional_interleaver_0, '0']
+- [dtv_dvbt_viterbi_decoder_0, '0', dtv_dvbt_convolutional_deinterleaver_0, '0']
+- [virtual_source_0, '0', digital_constellation_modulator_0, '0']
+- [virtual_source_1, '0', digital_constellation_decoder_cb_0, '0']
+- [virtual_source_2, '0', dtv_dvbt_viterbi_decoder_0, '0']
+
+metadata:
+  file_format: 1
